@@ -1,12 +1,21 @@
+import Link from 'next/link';
 import React from 'react';
 
-const LeftSidebar = ({ category }) => {
+const LeftSidebar = ({ categories, activeId }) => {
     return (
         <div>
             <ul>
-                <li className=' bg-slate-100 p-2 rounded-md font-bold text-center' key={category.category_id}>
-                    {category.category_name}
-                </li>
+
+            </ul>
+
+            <p>All Categories</p>
+
+            <ul className=' flex flex-col gap-3'>
+                {categories.news_category.map((category) => (
+                    <li className={`${activeId === category.category_id && 'bg-slate-100'} rounded-md font-bold text-center cursor-pointer`} key={category.category_id}>
+                        <Link href={`/category/${category.category_id}`} className=' block  p-2'>{category.category_name}</Link>
+                    </li>
+                ))}
             </ul>
         </div >
     );
