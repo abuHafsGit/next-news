@@ -19,14 +19,22 @@ const Navbar = () => {
                 <li><Navlink href={'/about'}>About</Navlink></li>
                 <li><Navlink href={'/career'}>career </Navlink></li>
             </ul>
-            <div className=' flex gap-2 justify-center items-center'>
-                <Image src={userAvtar} alt='user avatar' />
-                <p>{user?.name}</p>
-                <button>
-                    <Link href={'/login'}>Login</Link>
-                </button>
-                <button onClick={async () => await authClient.signOut()}>logout</button>
-            </div>
+
+
+            {
+                user ? (
+                    <div className=' flex gap-2 justify-center items-center'>
+                        <Image src={userAvtar} alt='user avatar' />
+                        <p>{user?.name}</p>
+
+                        <button onClick={async () => await authClient.signOut()}>logout</button>
+                    </div>
+                ) : (
+                    <button>
+                        <Link href={'/login'}>Login</Link>
+                    </button>
+                )
+            }
         </div>
     );
 };
