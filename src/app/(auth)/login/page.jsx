@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, InputGroup, Label, TextField } from "@heroui/react";
 import Link from "next/link";
@@ -7,12 +8,18 @@ import { useState } from "react";
 
 const LogingPage = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log({ email, password })
-
+        const { data, error } = await authClient.signIn.email({
+            email: email, // required
+            password: password, // required
+            rememberMe: true,
+            callbackURL: "/",
+        });
+        console.log(data)
     };
 
     return (
